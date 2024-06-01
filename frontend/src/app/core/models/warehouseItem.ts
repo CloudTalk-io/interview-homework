@@ -5,4 +5,5 @@ export interface WarehouseItem {
     description: string
     quantity: number
     unitPrice: number
+  imgUrl: string
 }
