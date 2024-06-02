@@ -7,8 +7,8 @@ import { ShipmentsListComponent } from './pages/shipments-list/shipments-list.co
 
 const routes: Routes = [
   { path: 'items', component: ItemsListComponent },
-  { path: 'shipments', component: ShipmentsListComponent }, // Add route for ShipmentsListComponent// Add route for ShipmentsListComponent
-  { path: '', redirectTo: '/items', pathMatch: 'full' }, // Redirect to items list by default
+  { path: 'shipments', component: ShipmentsListComponent },
+  { path: '', redirectTo: '/items', pathMatch: 'full' },
 ];
 
 @NgModule({

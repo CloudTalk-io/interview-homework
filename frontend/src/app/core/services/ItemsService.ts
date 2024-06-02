@@ -5,32 +5,30 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { WarehouseItem } from '../models/warehouseItem';
 import { Shipment } from '../models/shipment';
-import { Item } from '../models/item';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemsService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3000/warehouse';
 
   constructor(private http: HttpClient) { }
 
   // Methods for items
   getItems(): Observable<WarehouseItem[]> {
-    return this.http.get<WarehouseItem[]>(`${this.apiUrl}/products`);
+    return this.http.get<WarehouseItem[]>(`${this.apiUrl}/items`);
   }
 
   createItem(item: WarehouseItem): Observable<WarehouseItem> {
-    return this.http.post<WarehouseItem>(`${this.apiUrl}/product`, item);
+    return this.http.post<WarehouseItem>(`${this.apiUrl}/item`, item);
   }
 
   updateItem(id: string, item: WarehouseItem): Observable<WarehouseItem> {
-    return this.http.put<WarehouseItem>(`${this.apiUrl}/product/${id}`, item);
+    return this.http.put<WarehouseItem>(`${this.apiUrl}/item/${id}`, item);
   }
 
   deleteItem(id: string): Observable<WarehouseItem> {
-    return this.http.delete<WarehouseItem>(`${this.apiUrl}/product/${id}`);
+    return this.http.delete<WarehouseItem>(`${this.apiUrl}/item/${id}`);
   }
 
   // Methods for shipments
@@ -51,7 +49,6 @@ export class ItemsService {
   }
 
   addToShipment(itemId: string, shipmentId: string): Observable<Shipment> {
-    return this.http.post<Shipment>(`${this.apiUrl}/shipment/${shipmentId}/add-item`, { itemId });
+    return this.http.post<Shipment>(`${this.apiUrl}/shipment/${shipmentId}/add-item`, {itemId: itemId });
   }
-
 }

@@ -8,10 +8,10 @@ import { Item, ItemDocument } from '../../schemas/item.schema';
 export class WarehouseService {
   constructor(
     @InjectModel(Shipment.name) private shipmentModel: Model<ShipmentDocument>,
-    @InjectModel(Item.name) private productModel: Model<ItemDocument>,
+    @InjectModel(Item.name) private itemModel: Model<ItemDocument>,
   ) {}
 
-  // Add methods to manipulate products here
+  // Add methods to manipulate items
   async create(createShipmentDto: any): Promise<Shipment> {
     const createdShipment = new this.shipmentModel(createShipmentDto);
     return createdShipment.save();
@@ -32,26 +32,37 @@ export class WarehouseService {
   async delete(id: string): Promise<Shipment> {
     return this.shipmentModel.findByIdAndDelete(id);
   }
-  // Methods for products
-  async createProduct(createProductDto: any): Promise<Item> {
-    const createdProduct = new this.productModel(createProductDto);
-    return createdProduct.save();
+  // Methods for items
+  async createItem(createItemDto: any): Promise<Item> {
+    const createdItem = new this.itemModel(createItemDto);
+    return createdItem.save();
   }
 
-  async findAllProducts(): Promise<Item[]> {
-    return this.productModel.find().exec();
+  async findAllItems(): Promise<Item[]> {
+    return this.itemModel.find().exec();
   }
 
-  async findProductById(id: string): Promise<Item> {
-    return this.productModel.findById(id);
+  async findItemById(id: string): Promise<Item> {
+    return this.itemModel.findById(id);
   }
 
-  async updateProduct(id: string, updateProductDto: any): Promise<Item> {
-    return this.productModel.findByIdAndUpdate(id, updateProductDto, { new: true });
+  async updateItem(id: string, updateItemDto: any): Promise<Item> {
+    return this.itemModel.findByIdAndUpdate(id, updateItemDto, { new: true });
   }
 
-  async deleteProduct(id: string): Promise<Item> {
-    return this.productModel.findByIdAndDelete(id);
+  async deleteItem(id: string): Promise<Item> {
+    return this.itemModel.findByIdAndDelete(id);
   }
 
+  async addItemToShipment(shipmentId: string, itemId: string): Promise<Shipment> {
+    const shipment = await this.shipmentModel.findById(shipmentId);
+    console.log(shipment);
+    const item = await this.itemModel.findById(itemId);
+    console.log(item);
+    if (!shipment || !item) {
+      throw new Error('Shipment or Item not found');
+    }
+    shipment.items.push(item.id);
+    return shipment.save();
+  }
 }

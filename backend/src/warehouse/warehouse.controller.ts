@@ -30,29 +30,35 @@ export class WarehouseController {
   deleteShipment(@Param('id') id: string) {
     return this.warehouseService.delete(id);
   }
-  // Endpoints for products
-  @Post('product')
-  createProduct(@Body() createProductDto: any) {
-    return this.warehouseService.createProduct(createProductDto);
+
+  // Endpoints for items
+  @Post('item')
+  createItem(@Body() createItemDto: any) {
+    return this.warehouseService.createItem(createItemDto);
   }
 
-  @Get('products')
-  findAllProducts() {
-    return this.warehouseService.findAllProducts();
+  @Get('items')
+  findAllItems() {
+    return this.warehouseService.findAllItems();
   }
 
-  @Get('product/:id')
-  findProductById(@Param('id') id: string) {
-    return this.warehouseService.findProductById(id);
+  @Get('item/:id')
+  findItemById(@Param('id') id: string) {
+    return this.warehouseService.findItemById(id);
   }
 
-  @Put('product/:id')
-  updateProduct(@Param('id') id: string, @Body() updateProductDto: any) {
-    return this.warehouseService.updateProduct(id, updateProductDto);
+  @Put('item/:id')
+  updateItem(@Param('id') id: string, @Body() updateItemDto: any) {
+    return this.warehouseService.updateItem(id, updateItemDto);
   }
 
-  @Delete('product/:id')
-  deleteProduct(@Param('id') id: string) {
-    return this.warehouseService.deleteProduct(id);
+  @Delete('item/:id')
+  deleteItem(@Param('id') id: string) {
+    return this.warehouseService.deleteItem(id);
+  }
+  @Post('shipment/:id/add-item')
+  addItemToShipment(@Param('id') id: string, @Body() addItemDto: any)
+  { console.log(addItemDto);
+    return this.warehouseService.addItemToShipment(id, addItemDto.itemId);
   }
 }
