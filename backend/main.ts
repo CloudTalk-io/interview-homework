@@ -1,4 +1,4 @@
-// src/main.ts
+import './config';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DatabaseInitService } from './database/database-init.service';
@@ -9,4 +9,5 @@ async function bootstrap() {
   await databaseInitService.initDatabase();
   await app.listen(3000);
 }
+
 bootstrap();

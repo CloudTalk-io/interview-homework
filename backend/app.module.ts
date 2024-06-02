@@ -5,8 +5,8 @@ import { DatabaseInitService } from './database/database-init.service';
 import { Item, ItemSchema } from './schemas/item.schema';
 import { Shipment, ShipmentSchema } from './schemas/shipment.schema';
 
-const username = encodeURIComponent("principal-user");
-const password = encodeURIComponent("");
+const username = encodeURIComponent(process.env.DB_USERNAME);
+const password = encodeURIComponent(process.env.DB_PASSWORD);
 
 @Module({
   imports: [

@@ -1,0 +1,37 @@
+<form [formGroup]="shipmentForm" (ngSubmit)="onSubmit()">
+  <label>
+    Company Name:
+    <input type="text" formControlName="companyName">
+  </label>
+  <label>
+    Scheduled Shipment Date:
+    <input type="date" formControlName="scheduledShipmentDate">
+  </label>
+  <label>
+    Status:
+    <select formControlName="status">
+      <option *ngFor="let status of shipmentStatuses" [value]="status">{{ status }}</option>
+    </select>
+  </label>
+  <div formArrayName="items">
+    <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+      <label>
+        Item Name:
+        <input type="text" formControlName="name">
+      </label>
+      <label>
+        Description:
+        <input type="text" formControlName="description">
+      </label>
+      <label>
+        Quantity:
+        <input type="number" formControlName="quantity">
+      </label>
+      <label>
+        Unit Price:
+        <input type="number" formControlName="unitPrice">
+      </label>
+    </div>
+  </div>
+  <button type="submit">Submit</button>
+</form>
