@@ -1,1 +1,91 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.table-container {
+  margin: 20px auto;
+  max-width: 960px;
+  overflow-x: auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.table-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+.table-header {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.table-row {
+  border: 1px solid #ddd;
+}
+
+.table-cell {
+  padding: 12px 15px;
+  border-right: 1px solid #ddd;
+  word-wrap: break-word; /* Ensure long text wraps */
+}
+
+.table-cell:last-child {
+  border-right: none;
+}
+
+.table-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table-row:hover {
+  background-color: #f1f1f1;
+}
+
+.table-cell.image img {
+  width: 100px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button.create, button.update, button.delete, button.add-to-shipment {
+  background-color: #6c757d;
+  color: #fff;
+  margin: 5px;
+}
+
+button.create:hover, button.update:hover, button.delete:hover, button.add-to-shipment:hover {
+  background-color: #5a6268;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

@@ -30,16 +30,17 @@
 </div>
 
 <!-- Navigation -->
-<nav>
-  <a routerLink="/items">Items</a>
-  <a routerLink="/shipments">Shipments</a>
-</nav>
-
-<div class="content" role="main">
-  <router-outlet></router-outlet>
+<div class="navigation">
+  <button routerLink="/items">Items</button>
+  <button routerLink="/shipments">Shipments</button>
 </div>
 
+<!-- Router Outlet -->
+<router-outlet></router-outlet>
+
+<!-- Content -->
 <div class="content" role="main">
+  <span>{{ title }}</span>
   <router-outlet></router-outlet>
 </div>
 

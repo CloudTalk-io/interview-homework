@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import {Shipment, ShipmentDocument} from "../../schemas/shipment.schema";
+import { Shipment, ShipmentDocument } from '../../schemas/shipment.schema';
 import { Item, ItemDocument } from '../../schemas/item.schema';
+import { CreateShipmentDto } from '../../items/dto/create-shipment.dto';
+import { CreateItemDto } from '../../items/dto/create-item.dto';
 
 @Injectable()
 export class WarehouseService {
@@ -11,29 +13,40 @@ export class WarehouseService {
     @InjectModel(Item.name) private itemModel: Model<ItemDocument>,
   ) {}
 
-  // Add methods to manipulate items
-  async create(createShipmentDto: any): Promise<Shipment> {
+  async create(createShipmentDto: CreateShipmentDto): Promise<Shipment> {
     const createdShipment = new this.shipmentModel(createShipmentDto);
     return createdShipment.save();
   }
 
   async findAll(): Promise<Shipment[]> {
-    return this.shipmentModel.find().exec();
+    return this.shipmentModel.find().populate('items').exec();
   }
 
   async findOne(id: string): Promise<Shipment> {
-    return this.shipmentModel.findById(id);
+    const shipment = await this.shipmentModel.findById(id).populate('items').exec();
+    if (!shipment) {
+      throw new NotFoundException('Shipment not found');
+    }
+    return shipment;
   }
 
   async update(id: string, updateShipmentDto: any): Promise<Shipment> {
-    return this.shipmentModel.findByIdAndUpdate(id, updateShipmentDto, { new: true });
+    const updatedShipment = await this.shipmentModel.findByIdAndUpdate(id, updateShipmentDto, { new: true }).exec();
+    if (!updatedShipment) {
+      throw new NotFoundException('Shipment not found');
+    }
+    return updatedShipment;
   }
 
   async delete(id: string): Promise<Shipment> {
-    return this.shipmentModel.findByIdAndDelete(id);
+    const deletedShipment = await this.shipmentModel.findByIdAndDelete(id).exec();
+    if (!deletedShipment) {
+      throw new NotFoundException('Shipment not found');
+    }
+    return deletedShipment;
   }
-  // Methods for items
-  async createItem(createItemDto: any): Promise<Item> {
+
+  async createItem(createItemDto: CreateItemDto): Promise<Item> {
     const createdItem = new this.itemModel(createItemDto);
     return createdItem.save();
   }
@@ -43,24 +56,34 @@ export class WarehouseService {
   }
 
   async findItemById(id: string): Promise<Item> {
-    return this.itemModel.findById(id);
+    const item = await this.itemModel.findById(id).exec();
+    if (!item) {
+      throw new NotFoundException('Item not found');
+    }
+    return item;
   }
 
   async updateItem(id: string, updateItemDto: any): Promise<Item> {
-    return this.itemModel.findByIdAndUpdate(id, updateItemDto, { new: true });
+    const updatedItem = await this.itemModel.findByIdAndUpdate(id, updateItemDto, { new: true }).exec();
+    if (!updatedItem) {
+      throw new NotFoundException('Item not found');
+    }
+    return updatedItem;
   }
 
   async deleteItem(id: string): Promise<Item> {
-    return this.itemModel.findByIdAndDelete(id);
+    const deletedItem = await this.itemModel.findByIdAndDelete(id).exec();
+    if (!deletedItem) {
+      throw new NotFoundException('Item not found');
+    }
+    return deletedItem;
   }
 
   async addItemToShipment(shipmentId: string, itemId: string): Promise<Shipment> {
-    const shipment = await this.shipmentModel.findById(shipmentId);
-    console.log(shipment);
-    const item = await this.itemModel.findById(itemId);
-    console.log(item);
+    const shipment = await this.shipmentModel.findById(shipmentId).exec();
+    const item = await this.itemModel.findById(itemId).exec();
     if (!shipment || !item) {
-      throw new Error('Shipment or Item not found');
+      throw new NotFoundException('Shipment or Item not found');
     }
     shipment.items.push(item.id);
     return shipment.save();

@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {WarehouseItem} from "../../../core/models/warehouseItem";
+import { WarehouseItem } from '../../../core/models/warehouseItem';
 
 @Component({
   selector: 'app-list-item',
@@ -10,8 +10,12 @@ import {WarehouseItem} from "../../../core/models/warehouseItem";
   styleUrls: ['./list-item.component.scss']
 })
 export class ListItemComponent {
-  @Input() item: WarehouseItem
-  @Output() addToShipment: EventEmitter<void> = new EventEmitter<void>()
+  @Input() item: WarehouseItem;
+  @Output() addToShipment: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() { }
+
+  onAddToShipment() {
+    this.addToShipment.emit(this.item._id);
+  }
 }

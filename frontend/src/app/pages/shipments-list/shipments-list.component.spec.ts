@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ItemsListComponent } from './items-list.component';
+import { ShipmentsListComponent } from './shipments-list.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 
-describe('ItemsListComponent', () => {
-  let component: ItemsListComponent;
-  let fixture: ComponentFixture<ItemsListComponent>;
+describe('ShipmentsListComponent', () => {
+  let component: ShipmentsListComponent;
+  let fixture: ComponentFixture<ShipmentsListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -14,11 +13,11 @@ describe('ItemsListComponent', () => {
         HttpClientTestingModule,
         FormsModule
       ],
-      declarations: [ ItemsListComponent ]
+      declarations: [ ShipmentsListComponent ]
     })
-    .compileComponents();
+      .compileComponents();
 
-    fixture = TestBed.createComponent(ItemsListComponent);
+    fixture = TestBed.createComponent(ShipmentsListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -27,3 +26,6 @@ describe('ItemsListComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+
+

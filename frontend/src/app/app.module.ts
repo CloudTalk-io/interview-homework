@@ -7,7 +7,8 @@ import { ItemsListComponent } from './pages/items-list/items-list.component';
 import { ShipmentsListComponent } from './pages/shipments-list/shipments-list.component';
 import { ListItemComponent } from './pages/items-list/list-item/list-item.component';
 import { ShipmentFormComponent } from './pages/shipment-form/shipment-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { WarehouseStatusComponent } from './pages/warehouse-status/warehouse-status.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ItemsListComponent,
     ShipmentsListComponent,
     ShipmentFormComponent,
+    WarehouseStatusComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,8 +24,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     ListItemComponent,
     ReactiveFormsModule,
     HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

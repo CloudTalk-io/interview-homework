@@ -16,6 +16,11 @@ export class Item {
 
   @Prop({ required: true })
   unitPrice: number;
+
+  @Prop({ required: false })
+  imageUrl: string;
 }
+
+
 
 export const ItemSchema = SchemaFactory.createForClass(Item);

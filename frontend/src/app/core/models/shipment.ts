@@ -1,12 +1,18 @@
-// frontend/src/app/core/models/shipment.ts
-
+import { ShipmentStatus } from './shipment-status.enum';
 import { Item } from './item';
-
 export interface Shipment {
+  _id: string;
   companyName: string;
-  shipmentId: string;
   creationDate: Date;
   scheduledShipmentDate: Date;
   items: Item[];
-  status: string;
+  status: ShipmentStatus;
+  editing?: any;
+}
+
+export interface ShipmentDto {
+  companyName: string;
+  scheduledShipmentDate: string;
+  status: ShipmentStatus;
+  items: Item[];
 }

@@ -1,17 +1,14 @@
-// backend/warehouse-api/src/warehouse/warehouse.module.ts
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { WarehouseController } from './warehouse.controller';
 import { WarehouseService } from './warehouse.service';
-import { Shipment, ShipmentSchema } from '../../schemas/shipment.schema';
 import { Item, ItemSchema } from '../../schemas/item.schema';
+import { Shipment, ShipmentSchema } from '../../schemas/shipment.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: Shipment.name, schema: ShipmentSchema },
-      { name: Item.name, schema: ItemSchema },
-    ]),
+    MongooseModule.forFeature([{ name: Item.name, schema: ItemSchema }]),
+    MongooseModule.forFeature([{ name: Shipment.name, schema: ShipmentSchema }]),
   ],
   controllers: [WarehouseController],
   providers: [WarehouseService],

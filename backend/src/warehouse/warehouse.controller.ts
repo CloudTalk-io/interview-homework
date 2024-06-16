@@ -1,5 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { WarehouseService } from './warehouse.service';
+import { CreateShipmentDto } from '../../items/dto/create-shipment.dto';
+import { CreateItemDto } from '../../items/dto/create-item.dto';
 
 @Controller('warehouse')
 export class WarehouseController {
@@ -7,7 +9,7 @@ export class WarehouseController {
 
   // Endpoints for shipments
   @Post('shipment')
-  createShipment(@Body() createShipmentDto: any) {
+  createShipment(@Body() createShipmentDto: CreateShipmentDto) {
     return this.warehouseService.create(createShipmentDto);
   }
 
@@ -22,7 +24,7 @@ export class WarehouseController {
   }
 
   @Put('shipment/:id')
-  updateShipment(@Param('id') id: string, @Body() updateShipmentDto: any) {
+  updateShipment(@Param('id') id: string, @Body() updateShipmentDto: CreateShipmentDto) {
     return this.warehouseService.update(id, updateShipmentDto);
   }
 
@@ -33,7 +35,7 @@ export class WarehouseController {
 
   // Endpoints for items
   @Post('item')
-  createItem(@Body() createItemDto: any) {
+  createItem(@Body() createItemDto: CreateItemDto) {
     return this.warehouseService.createItem(createItemDto);
   }
 
@@ -48,7 +50,7 @@ export class WarehouseController {
   }
 
   @Put('item/:id')
-  updateItem(@Param('id') id: string, @Body() updateItemDto: any) {
+  updateItem(@Param('id') id: string, @Body() updateItemDto: CreateItemDto) {
     return this.warehouseService.updateItem(id, updateItemDto);
   }
 
@@ -56,9 +58,9 @@ export class WarehouseController {
   deleteItem(@Param('id') id: string) {
     return this.warehouseService.deleteItem(id);
   }
+
   @Post('shipment/:id/add-item')
-  addItemToShipment(@Param('id') id: string, @Body() addItemDto: any)
-  { console.log(addItemDto);
+  addItemToShipment(@Param('id') id: string, @Body() addItemDto: { itemId: string }) {
     return this.warehouseService.addItemToShipment(id, addItemDto.itemId);
   }
 }

@@ -1,9 +1,17 @@
-// frontend/src/app/core/models/item.ts
-
 export interface Item {
+  _id: string;
   name: string;
   description: string;
   quantity: number;
   unitPrice: number;
-  imgUrl: string;
+  imageUrl?: string;
+  editing?: any;
+}
+
+export interface CreateItemDto {
+  name: string;
+  description: string;
+  quantity: number;
+  unitPrice: number;
+  imageUrl?: string;
 }

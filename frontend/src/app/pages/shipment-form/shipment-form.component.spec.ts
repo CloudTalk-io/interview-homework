@@ -1,24 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ItemsListComponent } from './items-list.component';
+import { ShipmentFormComponent } from './shipment-form.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
-describe('ItemsListComponent', () => {
-  let component: ItemsListComponent;
-  let fixture: ComponentFixture<ItemsListComponent>;
+describe('ShipmentFormComponent', () => {
+  let component: ShipmentFormComponent;
+  let fixture: ComponentFixture<ShipmentFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        FormsModule
       ],
-      declarations: [ ItemsListComponent ]
+      declarations: [ ShipmentFormComponent ],
+      providers: [FormBuilder]
     })
-    .compileComponents();
+      .compileComponents();
 
-    fixture = TestBed.createComponent(ItemsListComponent);
+    fixture = TestBed.createComponent(ShipmentFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

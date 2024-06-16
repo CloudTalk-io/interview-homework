@@ -1,10 +1,8 @@
-// frontend/src/app/core/services/ItemsService.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { WarehouseItem } from '../models/warehouseItem';
-import { Shipment } from '../models/shipment';
+import { CreateItemDto, Item } from '../models/item';
+import { Shipment, ShipmentDto } from '../models/shipment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,28 +13,31 @@ export class ItemsService {
   constructor(private http: HttpClient) { }
 
   // Methods for items
-  getItems(): Observable<WarehouseItem[]> {
-    return this.http.get<WarehouseItem[]>(`${this.apiUrl}/items`);
+  getItems(): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.apiUrl}/items`);
   }
 
-  createItem(item: WarehouseItem): Observable<WarehouseItem> {
-    return this.http.post<WarehouseItem>(`${this.apiUrl}/item`, item);
+  createItem(item: CreateItemDto): Observable<Item> {
+    return this.http.post<Item>(`${this.apiUrl}/item`, item);
   }
 
-  updateItem(id: string, item: WarehouseItem): Observable<WarehouseItem> {
-    return this.http.put<WarehouseItem>(`${this.apiUrl}/item/${id}`, item);
+  updateItem(id: string, item: Item): Observable<Item> {
+    return this.http.put<Item>(`${this.apiUrl}/item/${id}`, item);
   }
 
-  deleteItem(id: string): Observable<WarehouseItem> {
-    return this.http.delete<WarehouseItem>(`${this.apiUrl}/item/${id}`);
+  deleteItem(id: string): Observable<Item> {
+    return this.http.delete<Item>(`${this.apiUrl}/item/${id}`);
   }
-
+  getItemsByIds(ids: string[]): Observable<Item[]> {
+    const params = ids.reduce((acc, id) => ({ ...acc, ids: id }), {});
+    return this.http.get<Item[]>(`${this.apiUrl}/items`, { params });
+  }
   // Methods for shipments
   getShipments(): Observable<Shipment[]> {
     return this.http.get<Shipment[]>(`${this.apiUrl}/shipments`);
   }
 
-  createShipment(shipment: Shipment): Observable<Shipment> {
+  createShipment(shipment: ShipmentDto): Observable<Shipment> {
     return this.http.post<Shipment>(`${this.apiUrl}/shipment`, shipment);
   }
 
@@ -49,6 +50,6 @@ export class ItemsService {
   }
 
   addToShipment(itemId: string, shipmentId: string): Observable<Shipment> {
-    return this.http.post<Shipment>(`${this.apiUrl}/shipment/${shipmentId}/add-item`, {itemId: itemId });
+    return this.http.post<Shipment>(`${this.apiUrl}/shipment/${shipmentId}/add-item`, { itemId });
   }
 }

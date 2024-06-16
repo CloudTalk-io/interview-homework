@@ -18,10 +18,19 @@ export class ShipmentFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.shipmentForm = this.fb.group({
-      companyName: [this.shipment.companyName, Validators.required],
-      scheduledShipmentDate: [this.shipment.scheduledShipmentDate, Validators.required],
-      status: [this.shipment.status, Validators.required],
-      items: [this.shipment.items, Validators.required]
+      companyName: [this.shipment?.companyName || '', Validators.required],
+      scheduledShipmentDate: [this.shipment?.scheduledShipmentDate || '', Validators.required],
+      status: [this.shipment?.status || '', Validators.required],
+      items: this.fb.array(this.shipment?.items.map(item => this.createItemGroup(item)) || [])
+    });
+  }
+
+  createItemGroup(item: any): FormGroup {
+    return this.fb.group({
+      name: [item.name, Validators.required],
+      description: [item.description, Validators.required],
+      quantity: [item.quantity, Validators.required],
+      unitPrice: [item.unitPrice, Validators.required]
     });
   }
 
@@ -30,6 +39,7 @@ export class ShipmentFormComponent implements OnInit {
       this.formSubmit.emit(this.shipmentForm.value);
     }
   }
+
   get items(): FormArray {
     return this.shipmentForm.get('items') as FormArray;
   }
