@@ -29,7 +29,18 @@
     </a>
 </div>
 
+<!-- Navigation -->
+<div class="navigation">
+  <button routerLink="/items">Items</button>
+  <button routerLink="/shipments">Shipments</button>
+</div>
+
+<!-- Router Outlet -->
+<router-outlet></router-outlet>
+
+<!-- Content -->
 <div class="content" role="main">
+  <span>{{ title }}</span>
   <router-outlet></router-outlet>
 </div>
 

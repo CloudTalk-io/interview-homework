@@ -1,0 +1,61 @@
+<div class="table-container">
+  <!-- Form for creating a new shipment -->
+  <form (submit)="createShipment(newShipment)" class="table">
+    <div class="table-row">
+      <div class="table-cell">
+        <input [(ngModel)]="newShipment.companyName" placeholder="Company Name" name="companyName" required>
+      </div>
+      <div class="table-cell">
+        <input [(ngModel)]="newShipment.scheduledShipmentDate" placeholder="Scheduled Shipment Date" name="scheduledShipmentDate" type="date" required>
+      </div>
+      <div class="table-cell">
+        <select [(ngModel)]="newShipment.status" name="status" required>
+          <option *ngFor="let status of shipmentStatuses" [value]="status">{{ status }}</option>
+        </select>
+      </div>
+      <div class="table-cell actions">
+        <button type="submit" class="create">Create Shipment</button>
+      </div>
+    </div>
+  </form>
+  <div class="table-title">Shipments List</div>
+  <table class="table">
+    <thead class="table-header">
+    <tr class="table-row">
+      <th class="table-cell company">Company</th>
+      <th class="table-cell creation-date">Creation Date</th>
+      <th class="table-cell scheduled-shipment-date">Scheduled Shipment Date</th>
+      <th class="table-cell status">Status</th>
+      <th class="table-cell items">Items</th>
+      <th class="table-cell actions">Actions</th>
+    </tr>
+    </thead>
+    <tbody class="table-body">
+    <tr *ngFor="let shipment of shipments$ | async" class="table-row">
+      <td class="table-cell company">{{ shipment.companyName }}</td>
+      <td class="table-cell creation-date">{{ shipment.creationDate | date }}</td>
+      <td class="table-cell scheduled-shipment-date">{{ shipment.scheduledShipmentDate | date }}</td>
+      <td class="table-cell status">{{ shipment.status }}</td>
+      <td class="table-cell items">
+        <ul>
+          <li *ngFor="let item of shipment.items">{{ item.name }}</li>
+        </ul>
+      </td>
+      <td class="table-cell actions">
+        <!-- Form for updating the shipment -->
+        <form *ngIf="shipment.editing" (submit)="updateShipment(shipment)">
+          <input [(ngModel)]="shipment.editing.companyName" placeholder="Company Name" name="companyName" required>
+          <input [(ngModel)]="shipment.editing.scheduledShipmentDate" placeholder="Scheduled Shipment Date" name="scheduledShipmentDate" type="date" required>
+          <select [(ngModel)]="shipment.editing.status" name="status" required>
+            <option *ngFor="let status of shipmentStatuses" [value]="status">{{ status }}</option>
+          </select>
+          <button type="submit" class="update">Update Shipment</button>
+        </form>
+        <button *ngIf="!shipment.editing" (click)="startEditing(shipment)" class="edit">Edit</button>
+        <button (click)="deleteShipment(shipment._id)" class="delete">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

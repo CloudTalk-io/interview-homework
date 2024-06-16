@@ -1,6 +1,77 @@
-<div class="items-list">
-    <app-list-item *ngFor="let item of items$ | async"
-                   [item]="item"
-                   (addToShipment)="addItemToShipment(item.id)">
-    </app-list-item>
+<div class="table-container">
+  <div class="table-title">Items List</div>
+  <!-- Form for creating a new item -->
+  <form (submit)="createItem(newItem)" class="table">
+    <table>
+      <thead class="table-header">
+      <tr class="table-row">
+        <th class="table-cell image">Image</th>
+        <th class="table-cell name">Name</th>
+        <th class="table-cell description">Description</th>
+        <th class="table-cell quantity">Quantity</th>
+        <th class="table-cell unit-price">Unit Price</th>
+        <th class="table-cell actions">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="table-row">
+        <td class="table-cell image">
+          <input [(ngModel)]="newItem.imageUrl" placeholder="Image URL" name="imageUrl">
+        </td>
+        <td class="table-cell name">
+          <input [(ngModel)]="newItem.name" placeholder="Name" name="name" required>
+        </td>
+        <td class="table-cell description">
+          <input [(ngModel)]="newItem.description" placeholder="Description" name="description" required>
+        </td>
+        <td class="table-cell quantity">
+          <input [(ngModel)]="newItem.quantity" placeholder="Quantity" name="quantity" type="number" required>
+        </td>
+        <td class="table-cell unit-price">
+          <input [(ngModel)]="newItem.unitPrice" placeholder="Unit Price" name="unitPrice" type="number" required>
+        </td>
+        <td class="table-cell actions">
+          <button type="submit" class="create">Create Item</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </form>
+  <!-- List of items -->
+  <table class="table">
+    <thead class="table-header">
+    <tr class="table-row">
+      <th class="table-cell image">Image</th>
+      <th class="table-cell name">Name</th>
+      <th class="table-cell description">Description</th>
+      <th class="table-cell quantity">Quantity</th>
+      <th class="table-cell unit-price">Unit Price</th>
+      <th class="table-cell actions">Actions</th>
+    </tr>
+    </thead>
+    <tbody class="table-body">
+    <tr *ngFor="let item of items$ | async" class="table-row">
+      <td class="table-cell image">
+        <img [src]="item.imageUrl" alt="warehouse-item-image">
+      </td>
+      <td class="table-cell name">{{ item.name }}</td>
+      <td class="table-cell description">{{ item.description }}</td>
+      <td class="table-cell quantity">{{ item.quantity }}</td>
+      <td class="table-cell unit-price">€{{ item.unitPrice }}</td>
+      <td class="table-cell actions">
+        <button (click)="addItemToShipment(item._id, shipmentId)" class="add-to-shipment">Add to Shipment</button>
+        <!-- Form for updating the item -->
+        <form *ngIf="item.editing" (submit)="updateItem(item)" style="display: inline;">
+          <input [(ngModel)]="item.editing.name" placeholder="Name" name="name" required>
+          <input [(ngModel)]="item.editing.description" placeholder="Description" name="description" required>
+          <input [(ngModel)]="item.editing.quantity" placeholder="Quantity" name="quantity" type="number" required>
+          <input [(ngModel)]="item.editing.unitPrice" placeholder="Unit Price" name="unitPrice" type="number" required>
+          <button type="submit" class="update">Update Item</button>
+        </form>
+        <button *ngIf="!item.editing" (click)="startEditing(item)" class="edit">Edit</button>
+        <button (click)="deleteItem(item._id)" class="delete">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
