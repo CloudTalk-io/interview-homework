@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListItemComponent } from './list-item/list-item.component';
 import { Observable, of } from 'rxjs';
-import { WarehouseItem } from '../../core/models/warehouseItem';
+import { WarehouseItem } from '../../core/models/warehouse-item';
 import { ItemsMockService } from './items.mock.service';
 
 @Component({

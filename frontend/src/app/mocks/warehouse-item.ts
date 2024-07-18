@@ -1,4 +1,4 @@
-import { WarehouseItem } from '../core/models/warehouseItem';
+import { WarehouseItem } from '../core/models/warehouse-item';
 
 export const mockWarehouseItem: WarehouseItem = {
   imageUrl: '/warehouse/item/image-url',
