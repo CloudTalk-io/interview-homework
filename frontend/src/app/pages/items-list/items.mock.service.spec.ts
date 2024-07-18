@@ -7,7 +7,7 @@ describe('ItemsMockService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ItemsMockService]
+      providers: [ItemsMockService],
     });
     service = TestBed.inject(ItemsMockService);
   });
