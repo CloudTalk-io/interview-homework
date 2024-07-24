@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "postinstall": "node mock-data/insert-mock-data",
     "start": "node ./bin/www",
     "start:dev": "nodemon ./bin/www",
     "test": "jest",
@@ -23,6 +24,7 @@
     "@eslint/js": "^9.7.0",
     "eslint": "^9.7.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-jest": "^28.6.0",
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.8.0",
     "jest": "^29.7.0",

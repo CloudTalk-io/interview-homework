@@ -5,10 +5,13 @@ const logger = require('./utils/logger')('mongodb');
 function connect() {
   mongoose.connection
     .on('error', (e) => logger.error(e))
-    .on('disconnected', connect)
     .once('connected', () => logger.info('DB is connected'));
 
   return mongoose.connect(config.uri);
 }
 
-module.exports = { connect };
+function disconnect() {
+  return mongoose.connection.destroy();
+}
+
+module.exports = { connect, disconnect };
