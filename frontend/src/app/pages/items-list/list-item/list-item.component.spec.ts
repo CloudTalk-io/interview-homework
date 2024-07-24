@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListItemComponent } from './list-item.component';
-import { mockWarehouseItem } from 'src/app/mocks/warehouse-item';
+import { mockProduct } from '../../../mocks/product';
 
 describe('ListItemComponent', () => {
   let component: ListItemComponent;
@@ -14,7 +14,7 @@ describe('ListItemComponent', () => {
 
     fixture = TestBed.createComponent(ListItemComponent);
     component = fixture.componentInstance;
-    component.item = mockWarehouseItem;
+    component.item = mockProduct;
     fixture.detectChanges();
   });
 
