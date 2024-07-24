@@ -7,8 +7,7 @@ const cors = require('cors');
 const { randomBytes } = require('crypto');
 
 const sessionConfig = require('./configs/session.config');
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const routes = require('./routes');
 
 const app = express();
 
@@ -48,7 +47,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+routes(app);
 
 module.exports = app;
