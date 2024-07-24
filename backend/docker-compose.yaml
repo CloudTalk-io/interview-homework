@@ -1,0 +1,11 @@
+version: '3'
+services:
+  mongodb:
+    container_name: warehouse-mongodb
+    image: mongodb/mongodb-community-server:6.0-ubi8
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=warehouse-root
+      - MONGO_INITDB_ROOT_PASSWORD=warehouse-root-123
+    ports:
+      - 27017:27017
+
