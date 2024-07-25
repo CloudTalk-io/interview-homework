@@ -4,10 +4,11 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const cookieSession = require('cookie-session');
 const cors = require('cors');
-const { randomBytes } = require('crypto');
 
 const sessionConfig = require('./configs/session.config');
 const routes = require('./routes');
+const sessionUserId = require('./middlewares/session-user-id.middleware');
+const errorHandler = require('./middlewares/error-handler.middleware');
 
 const app = express();
 
@@ -39,14 +40,10 @@ app.use(
   })
 );
 
-app.use(function (req, res, next) {
-  // this is demo solution not production-ready
-  // in production better to have register/login functionality and store user in DB
-  // set userId for each request which does not have it
-  req.session.userId = req.session.userId || randomBytes(16).toString('hex');
-  next();
-});
+app.use(sessionUserId);
 
 routes(app);
+
+app.use(errorHandler);
 
 module.exports = app;
