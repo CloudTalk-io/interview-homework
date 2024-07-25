@@ -5,17 +5,19 @@
   "scripts": {
     "postinstall": "node mock-data/insert-mock-data",
     "start": "node ./bin/www",
-    "start:dev": "nodemon ./bin/www",
+    "start:dev": "nodemon --inspect ./bin/www",
     "test": "jest",
     "lint": "eslint --fix"
   },
   "dependencies": {
+    "async-middleware": "^1.2.1",
     "cookie-parser": "~1.4.4",
     "cookie-session": "^2.1.0",
     "cors": "^2.8.5",
-    "debug": "~2.6.9",
     "dotenv": "^16.4.5",
     "express": "~4.16.1",
+    "express-validator": "^7.1.0",
+    "http-errors": "^2.0.0",
     "mongoose": "^8.5.1",
     "morgan": "~1.9.1",
     "winston": "^3.13.1"
