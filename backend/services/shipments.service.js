@@ -36,6 +36,7 @@ async function update(id, shipmentDto, userId) {
 
   shipment.companyName = shipmentDto.companyName || shipment.companyName;
   shipment.shipmentDate = shipmentDto.shipmentDate;
+  shipment.status = shipmentDto.status || shipment.status;
   shipment.products =
     typeof shipmentDto.products === 'undefined'
       ? shipment.products

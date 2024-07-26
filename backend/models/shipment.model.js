@@ -1,10 +1,21 @@
 const mongoose = require('mongoose');
 const Product = require('./product.model');
 
+const ShipmentStatus = {
+  Created: 'created',
+  Prepared: 'prepared',
+  Shipped: 'shipped',
+};
+
 const ShipmentSchema = new mongoose.Schema(
   {
     companyName: { type: String, required: true },
     shipmentDate: { type: Date },
+    status: {
+      type: String,
+      enum: Object.values(ShipmentStatus),
+      default: ShipmentStatus.Created,
+    },
     products: [
       {
         type: new mongoose.Schema(
@@ -40,3 +51,4 @@ const ShipmentSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model('Shipment', ShipmentSchema);
+module.exports.ShipmentStatus = ShipmentStatus;
