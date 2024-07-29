@@ -1,0 +1,20 @@
+<div class="shipments-actions">
+  <a routerLink="create" class="shipments-actions--btn">Create new</a>
+</div>
+<div class="shipments-list">
+  <ng-container *ngIf="shipments$ | async as shipments">
+    <div class="shipments-list--header">
+      <div><b>Company name</b></div>
+      <div><b>Shipment date</b></div>
+      <div><b>Status</b></div>
+      <div><b>Products</b></div>
+      <div><b>Created date</b></div>
+      <div></div>
+    </div>
+
+    <app-shipment-item *ngFor="let shipment of shipments" [shipment]="shipment">
+    </app-shipment-item>
+
+    <div class="shipments-list--empty-state" *ngIf="!shipments.length">No shipments yet.</div>
+  </ng-container>
+</div>
