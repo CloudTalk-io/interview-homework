@@ -1,0 +1,35 @@
+:host {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.form--wrapper {
+  width: 400px;
+}
+
+.shipment-form {
+  &--products-item {
+    display: flex;
+    gap: 7.5px 15px;
+    flex-wrap: wrap;
+  }
+
+  &--products {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &--products-name {
+    flex: 1 0 auto;
+  }
+
+  &--products-btn {
+    border-radius: 3px;
+  }
+
+  &--products-separator {
+    flex: 1 0 100%;
+  }
+}

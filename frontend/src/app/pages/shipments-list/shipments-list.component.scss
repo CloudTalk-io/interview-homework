@@ -1,0 +1,34 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.shipments-actions {
+  display: flex;
+  justify-content: end;
+  gap: 15px;
+  padding: 15px 0;
+
+  &--btn {
+    border-radius: 7px;
+    padding: 10px;
+    background: rgb(239, 239, 239);
+  }
+}
+
+.shipments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  &--header {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 25% 12% 12% auto 12% 8%;
+    margin: 0 10px 15px 10px;
+  }
+
+  app-shipment-item:hover {
+    background: #cecece;
+  }
+}

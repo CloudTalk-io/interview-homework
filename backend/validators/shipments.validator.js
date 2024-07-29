@@ -14,7 +14,14 @@ const status = body('status')
 
 const products = [
   body('products').optional().isArray(),
-  body('products.*.product').not().isEmpty().isMongoId(),
+  body('products.*.product')
+    .not()
+    .isEmpty()
+    .isMongoId()
+    .custom(
+      (v, { req }) =>
+        req.body.products.filter((p) => p.product === v).length === 1
+    ),
   body('products.*.quantity').optional().isInt({ min: 1 }),
 ];
 

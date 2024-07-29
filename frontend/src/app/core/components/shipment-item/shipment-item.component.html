@@ -1,0 +1,22 @@
+<div class="shipment-item">
+  <div class="shipment-item--company-name">{{ shipment.companyName }}</div>
+  <div class="shipment-item--shipment-date">
+    {{ shipment.shipmentDate ? (shipment.shipmentDate | date: 'shortDate') : 'N/A' }}
+  </div>
+  <div class="shipment-item--status">{{ shipment.status }}</div>
+  <div class="shipment-item--products">
+    <div *ngFor="let product of shipment.products">
+      {{ product.product.name }} x {{ product.quantity }}
+    </div>
+    <div *ngIf="!shipment.products.length">You have not added products yet</div>
+  </div>
+  <div class="shipment-item--created-at">{{ shipment.createdAt | date: 'shortDate' }}</div>
+  <div class="shipment-item--actions">
+    <div class="shipment-item--actions" #actionsContainer>
+      <ng-content></ng-content>
+    </div>
+    <ng-container *ngIf="!actionsContainer.hasChildNodes()">
+      <a [routerLink]="['/shipments', shipment._id]" class="shipment-item--btn">Edit</a>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<form novalidate *ngIf="form" [formGroup]="form" class="form--wrapper" (ngSubmit)="saveShipment()">
+  <h3>{{ shipmentId ? 'Edit' : 'Create new' }} shipment</h3>
+
+  <div class="form--field">
+    <label for="companyName" class="form--label">Company name</label>
+    <input type="text" formControlName="companyName" id="companyName" required />
+  </div>
+  <div class="form--field">
+    <label for="shipmentDate" class="form--label">Shipment date</label>
+    <input type="date" formControlName="shipmentDate" id="shipmentDate" />
+  </div>
+  <ng-container *ngIf="shipmentId">
+    <div class="form--field">
+      <label for="status" class="form--label">Status</label>
+      <select formControlName="status" id="status">
+        <option *ngFor="let status of shipmentStatusesValues" [value]="status">{{ status }}</option>
+      </select>
+    </div>
+    <div class="form--field" formArrayName="products">
+      <label class="form--label">Products</label>
+      <div class="shipment-form--products">
+        <div
+          class="shipment-form--products-item"
+          *ngFor="let productControl of productsFromArray.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <div class="shipment-form--products-name">
+            {{ productControl.get('product')!.value.name }}
+          </div>
+          <input
+            type="number"
+            formControlName="quantity"
+            min="1"
+            [max]="productControl.get('product')!.value.quantity"
+          />
+          <button class="shipment-form--products-btn" (click)="productsFromArray.removeAt(i)">
+            &#10005;
+          </button>
+          <ng-container
+            *ngIf="
+              productControl.get('quantity')!.invalid && productControl.get('quantity')!.touched
+            "
+          >
+            <div class="shipment-form--products-separator"></div>
+            <div class="form--error" [ngSwitch]="true">
+              <ng-container *ngSwitchCase="productControl.get('quantity')!.hasError('min')">
+                Quantity must be greater at least 1
+              </ng-container>
+              <ng-container *ngSwitchCase="productControl.get('quantity')!.hasError('max')">
+                Max quantity is {{ productControl.get('product')!.value.quantity }} units
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="form--actions">
+    <a routerLink="/shipments" class="form--btn">Cancel</a>
+    <button type="submit" class="form--btn" [disabled]="form.invalid">Save</button>
+  </div>
+</form>

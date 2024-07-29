@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.shipment-item {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 25% 12% 12% auto 12% 8%;
+  gap: 10px;
+
+  &--status {
+    text-transform: capitalize;
+  }
+
+  &--actions {
+    display: flex;
+    justify-content: end;
+  }
+
+  &--btn {
+    border-radius: 7px;
+    padding: 10px;
+    background: rgb(239, 239, 239);
+  }
+}

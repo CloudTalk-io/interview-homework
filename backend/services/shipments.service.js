@@ -2,7 +2,7 @@ const logger = require('../utils/logger')('shipments-service');
 const Shipment = require('../models/shipment.model');
 
 function fetchAll(userId) {
-  return Shipment.find({ createdBy: userId });
+  return Shipment.find({ createdBy: userId }).populate('products.product');
 }
 
 async function create(shipmentDto, userId) {

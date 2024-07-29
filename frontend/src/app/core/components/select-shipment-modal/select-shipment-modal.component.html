@@ -1,0 +1,29 @@
+<div class="modal--header">
+  <h2>Select shipment</h2>
+  <button class="modal--close-btn" (click)="modalRef.close()">&#10005;</button>
+</div>
+<div class="modal--content">
+  <div class="shipments-list">
+    <ng-container *ngIf="shipments$ | async as shipments">
+      <div class="shipments-list--header">
+        <div><b>Company name</b></div>
+        <div><b>Shipment date</b></div>
+        <div><b>Status</b></div>
+        <div><b>Products</b></div>
+        <div><b>Created date</b></div>
+        <div></div>
+      </div>
+
+      <app-shipment-item *ngFor="let shipment of shipments" [shipment]="shipment">
+        <button class="shipments-list--btn" (click)="modalRef.close(shipment)">Select</button>
+      </app-shipment-item>
+
+      <div class="shipments-list--empty-state" *ngIf="!shipments.length">
+        <p>No shipments yet.</p>
+        <div>
+          <a routerLink="/shipments/create" class="shipments-list--btn">Create new shipment</a>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

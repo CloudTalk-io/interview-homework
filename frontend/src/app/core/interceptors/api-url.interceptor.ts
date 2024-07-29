@@ -9,6 +9,7 @@ export class ApiUrlInterceptor implements HttpInterceptor {
     return next.handle(
       request.clone({
         url: `${environment.api.baseUrl}/${request.url}`,
+        withCredentials: true,
       }),
     );
   }
